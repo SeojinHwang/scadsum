@@ -61,9 +61,9 @@ mcpR <- function(lambda1, lambda2=0, gamma=3, X, b, thr=1e-4,
     # summation of mcp penalty for each beta
     for(k in 1:len) {
       if (abs(x[k]) <= gamma*lambda1a[i]) {
-        pen[k] <- loss[i] + 2* abs(x[k])*lambda1a[i] - x[k]^2/gamma + (x[k]^2)*lambda2
+        pen[k] <- 2* abs(x[k])*lambda1a[i] - x[k]^2/gamma 
       } else {
-        pen[k] <- loss[i] + (lambda1a[i]^2)*gamma + (x[k]^2)*lambda2
+        pen[k] <- (lambda1a[i]^2)*gamma
       }
     }
     fbeta[i] <- loss[i] + sum(pen) + sum(x^2)*lambda2

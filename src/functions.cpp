@@ -954,7 +954,7 @@ List runScad(arma::vec& lambda, double shrink, double gamma, const std::string f
   // a) read bed file
   // b) standardize genotype matrix
   // c) multiply by constatant factor
-  // d) perfrom elnet
+  // d) perfrom scad
 
   // Rcout << "ABC" << std::endl;
 
@@ -1009,9 +1009,19 @@ List runScad(arma::vec& lambda, double shrink, double gamma, const std::string f
     pred.col(i) = yhat;
     loss(i) = arma::as_scalar(arma::sum(arma::pow(yhat, 2)) -
                               2.0 * arma::sum(x % r));
+    arma::vec pen(len);
+    // summation of scad penalty for each beta   
+    for (k=0; k < len; k++) {
+      if (arma::abs(x(k)) <= lambda(i)) {
+        pen(k) = arma::as_scalar(2.0*arma::abs(x(k))*lambda(i));
+      } else if (arma::abs(x(k)) <= gamma*lambda(i)) {
+        pen(k) = arma::as_scalar((2.0*gamma*arma::abs(x(k))*lambda(i) - arma::pow(x(k), 2) - arma::pow(lambda(i), 2))/(gamma-1));
+      } else {
+        pen(k) = arma::as_scalar(arma::pow(lambda(i), 2)*(gamma+1));
+      }
+    }                       
     fbeta(i) =
-        arma::as_scalar(loss(i) + 2.0 * arma::sum(arma::abs(x)) * lambda(i) +
-                        arma::sum(arma::pow(x, 2)) * shrink);
+        arma::as_scalar(loss(i) + arma::sum(pen) + arma::sum(arma::pow(x, 2)) * shrink);
   }
   return List::create(Named("lambda") = lambda, 
             Named("gamma") = gamma,
@@ -1111,9 +1121,17 @@ List runMcp(arma::vec& lambda, double shrink, double gamma, const std::string fi
     pred.col(i) = yhat;
     loss(i) = arma::as_scalar(arma::sum(arma::pow(yhat, 2)) -
                               2.0 * arma::sum(x % r));
+    arma::vec pen(len);
+    // summation of mcp penalty for each beta   
+    for (k=0; k < len; k++) {
+      if (arma::abs(x(k)) <= gamma*lambda(i)) {
+        pen(k) = arma::as_scalar(2.0*arma::abs(x(k))*lambda(i) - arma::pow(x(k), 2)/gamma);
+      } else {
+        pen(k) = arma::as_scalar(arma::pow(lambda(i), 2)*gamma);
+      }
+    }                       
     fbeta(i) =
-        arma::as_scalar(loss(i) + 2.0 * arma::sum(arma::abs(x)) * lambda(i) +
-                        arma::sum(arma::pow(x, 2)) * shrink);
+        arma::as_scalar(loss(i) + arma::sum(pen) + arma::sum(arma::pow(x, 2)) * shrink);
   }
   return List::create(Named("lambda") = lambda, 
             Named("gamma") = gamma,
