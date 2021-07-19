@@ -540,13 +540,13 @@ RcppExport SEXP _lassosum_runElnet(SEXP lambdaSEXP, SEXP shrinkSEXP, SEXP fileNa
 
 // sj0717
 // runScad
-List runScad(arma::vec& lambda, double gamma, double shrink, const std::string fileName, arma::vec& r, int N, int P, arma::Col<int>& col_skip_pos, arma::Col<int>& col_skip, arma::Col<int>& keepbytes, arma::Col<int>& keepoffset, double thr, arma::vec& x, int trace, int maxiter, arma::Col<int>& startvec, arma::Col<int>& endvec);
-static SEXP _scadsum_runScad_try(SEXP lambdaSEXP, SEXP gammaSEXP, SEXP shrinkSEXP, SEXP fileNameSEXP, SEXP rSEXP, SEXP NSEXP, SEXP PSEXP, SEXP col_skip_posSEXP, SEXP col_skipSEXP, SEXP keepbytesSEXP, SEXP keepoffsetSEXP, SEXP thrSEXP, SEXP xSEXP, SEXP traceSEXP, SEXP maxiterSEXP, SEXP startvecSEXP, SEXP endvecSEXP) {
+List runScad(arma::vec& lambda, double shrink, double gamma, const std::string fileName, arma::vec& r, int N, int P, arma::Col<int>& col_skip_pos, arma::Col<int>& col_skip, arma::Col<int>& keepbytes, arma::Col<int>& keepoffset, double thr, arma::vec& x, int trace, int maxiter, arma::Col<int>& startvec, arma::Col<int>& endvec);
+static SEXP _scadsum_runScad_try(SEXP lambdaSEXP, SEXP shrinkSEXP, SEXP gammaSEXP, SEXP fileNameSEXP, SEXP rSEXP, SEXP NSEXP, SEXP PSEXP, SEXP col_skip_posSEXP, SEXP col_skipSEXP, SEXP keepbytesSEXP, SEXP keepoffsetSEXP, SEXP thrSEXP, SEXP xSEXP, SEXP traceSEXP, SEXP maxiterSEXP, SEXP startvecSEXP, SEXP endvecSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< arma::vec& >::type lambda(lambdaSEXP);
-    Rcpp::traits::input_parameter< double >::type gamma(gammaSEXP);
     Rcpp::traits::input_parameter< double >::type shrink(shrinkSEXP);
+    Rcpp::traits::input_parameter< double >::type gamma(gammaSEXP);
     Rcpp::traits::input_parameter< const std::string >::type fileName(fileNameSEXP);
     Rcpp::traits::input_parameter< arma::vec& >::type r(rSEXP);
     Rcpp::traits::input_parameter< int >::type N(NSEXP);
@@ -561,15 +561,15 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type maxiter(maxiterSEXP);
     Rcpp::traits::input_parameter< arma::Col<int>& >::type startvec(startvecSEXP);
     Rcpp::traits::input_parameter< arma::Col<int>& >::type endvec(endvecSEXP);
-    rcpp_result_gen = Rcpp::wrap(runScad(lambda, gamma, shrink, fileName, r, N, P, col_skip_pos, col_skip, keepbytes, keepoffset, thr, x, trace, maxiter, startvec, endvec));
+    rcpp_result_gen = Rcpp::wrap(runScad(lambda, shrink, gamma, fileName, r, N, P, col_skip_pos, col_skip, keepbytes, keepoffset, thr, x, trace, maxiter, startvec, endvec));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _scadsum_runScad(SEXP lambdaSEXP, SEXP gammaSEXP, SEXP shrinkSEXP, SEXP fileNameSEXP, SEXP rSEXP, SEXP NSEXP, SEXP PSEXP, SEXP col_skip_posSEXP, SEXP col_skipSEXP, SEXP keepbytesSEXP, SEXP keepoffsetSEXP, SEXP thrSEXP, SEXP xSEXP, SEXP traceSEXP, SEXP maxiterSEXP, SEXP startvecSEXP, SEXP endvecSEXP) {
+RcppExport SEXP _scadsum_runScad(SEXP lambdaSEXP, SEXP shrinkSEXP, SEXP gammaSEXP, SEXP fileNameSEXP, SEXP rSEXP, SEXP NSEXP, SEXP PSEXP, SEXP col_skip_posSEXP, SEXP col_skipSEXP, SEXP keepbytesSEXP, SEXP keepoffsetSEXP, SEXP thrSEXP, SEXP xSEXP, SEXP traceSEXP, SEXP maxiterSEXP, SEXP startvecSEXP, SEXP endvecSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_scadsum_runScad_try(lambdaSEXP, gammaSEXP, shrinkSEXP, fileNameSEXP, rSEXP, NSEXP, PSEXP, col_skip_posSEXP, col_skipSEXP, keepbytesSEXP, keepoffsetSEXP, thrSEXP, xSEXP, traceSEXP, maxiterSEXP, startvecSEXP, endvecSEXP));
+        rcpp_result_gen = PROTECT(_scadsum_runScad_try(lambdaSEXP, shrinkSEXP, gammaSEXP, fileNameSEXP, rSEXP, NSEXP, PSEXP, col_skip_posSEXP, col_skipSEXP, keepbytesSEXP, keepoffsetSEXP, thrSEXP, xSEXP, traceSEXP, maxiterSEXP, startvecSEXP, endvecSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -594,13 +594,13 @@ RcppExport SEXP _scadsum_runScad(SEXP lambdaSEXP, SEXP gammaSEXP, SEXP shrinkSEX
 
 // sj0717
 // runMcp
-List runMcp(arma::vec& lambda, double gamma, double shrink, const std::string fileName, arma::vec& r, int N, int P, arma::Col<int>& col_skip_pos, arma::Col<int>& col_skip, arma::Col<int>& keepbytes, arma::Col<int>& keepoffset, double thr, arma::vec& x, int trace, int maxiter, arma::Col<int>& startvec, arma::Col<int>& endvec);
-static SEXP _scadsum_runMcp_try(SEXP lambdaSEXP, SEXP gammaSEXP, SEXP shrinkSEXP, SEXP fileNameSEXP, SEXP rSEXP, SEXP NSEXP, SEXP PSEXP, SEXP col_skip_posSEXP, SEXP col_skipSEXP, SEXP keepbytesSEXP, SEXP keepoffsetSEXP, SEXP thrSEXP, SEXP xSEXP, SEXP traceSEXP, SEXP maxiterSEXP, SEXP startvecSEXP, SEXP endvecSEXP) {
+List runMcp(arma::vec& lambda, double shrink, double gamma, const std::string fileName, arma::vec& r, int N, int P, arma::Col<int>& col_skip_pos, arma::Col<int>& col_skip, arma::Col<int>& keepbytes, arma::Col<int>& keepoffset, double thr, arma::vec& x, int trace, int maxiter, arma::Col<int>& startvec, arma::Col<int>& endvec);
+static SEXP _scadsum_runMcp_try(SEXP lambdaSEXP, SEXP shrinkSEXP, SEXP gammaSEXP, SEXP fileNameSEXP, SEXP rSEXP, SEXP NSEXP, SEXP PSEXP, SEXP col_skip_posSEXP, SEXP col_skipSEXP, SEXP keepbytesSEXP, SEXP keepoffsetSEXP, SEXP thrSEXP, SEXP xSEXP, SEXP traceSEXP, SEXP maxiterSEXP, SEXP startvecSEXP, SEXP endvecSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< arma::vec& >::type lambda(lambdaSEXP);
-    Rcpp::traits::input_parameter< double >::type gamma(gammaSEXP);
     Rcpp::traits::input_parameter< double >::type shrink(shrinkSEXP);
+    Rcpp::traits::input_parameter< double >::type gamma(gammaSEXP);
     Rcpp::traits::input_parameter< const std::string >::type fileName(fileNameSEXP);
     Rcpp::traits::input_parameter< arma::vec& >::type r(rSEXP);
     Rcpp::traits::input_parameter< int >::type N(NSEXP);
@@ -615,15 +615,15 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type maxiter(maxiterSEXP);
     Rcpp::traits::input_parameter< arma::Col<int>& >::type startvec(startvecSEXP);
     Rcpp::traits::input_parameter< arma::Col<int>& >::type endvec(endvecSEXP);
-    rcpp_result_gen = Rcpp::wrap(runMcp(lambda, gamma, shrink, fileName, r, N, P, col_skip_pos, col_skip, keepbytes, keepoffset, thr, x, trace, maxiter, startvec, endvec));
+    rcpp_result_gen = Rcpp::wrap(runMcp(lambda, shrink, gamma, fileName, r, N, P, col_skip_pos, col_skip, keepbytes, keepoffset, thr, x, trace, maxiter, startvec, endvec));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _scadsum_runMcp(SEXP lambdaSEXP, SEXP gammaSEXP, SEXP shrinkSEXP, SEXP fileNameSEXP, SEXP rSEXP, SEXP NSEXP, SEXP PSEXP, SEXP col_skip_posSEXP, SEXP col_skipSEXP, SEXP keepbytesSEXP, SEXP keepoffsetSEXP, SEXP thrSEXP, SEXP xSEXP, SEXP traceSEXP, SEXP maxiterSEXP, SEXP startvecSEXP, SEXP endvecSEXP) {
+RcppExport SEXP _scadsum_runMcp(SEXP lambdaSEXP, SEXP shrinkSEXP, SEXP gammaSEXP, SEXP fileNameSEXP, SEXP rSEXP, SEXP NSEXP, SEXP PSEXP, SEXP col_skip_posSEXP, SEXP col_skipSEXP, SEXP keepbytesSEXP, SEXP keepoffsetSEXP, SEXP thrSEXP, SEXP xSEXP, SEXP traceSEXP, SEXP maxiterSEXP, SEXP startvecSEXP, SEXP endvecSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_scadsum_runMcp_try(lambdaSEXP, gammaSEXP, shrinkSEXP, fileNameSEXP, rSEXP, NSEXP, PSEXP, col_skip_posSEXP, col_skipSEXP, keepbytesSEXP, keepoffsetSEXP, thrSEXP, xSEXP, traceSEXP, maxiterSEXP, startvecSEXP, endvecSEXP));
+        rcpp_result_gen = PROTECT(_scadsum_runMcp_try(lambdaSEXP, shrinkSEXP, gammaSEXP, fileNameSEXP, rSEXP, NSEXP, PSEXP, col_skip_posSEXP, col_skipSEXP, keepbytesSEXP, keepoffsetSEXP, thrSEXP, xSEXP, traceSEXP, maxiterSEXP, startvecSEXP, endvecSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {

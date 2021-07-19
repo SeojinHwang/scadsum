@@ -560,6 +560,7 @@ int scad(double lambda1, double lambda2, double gamma, const arma::vec& diag, co
   return conv;
 }
 
+
 // [[Rcpp::export]]
 int repscad(double lambda1, double lambda2, double gamma, arma::vec& diag, arma::mat& X, arma::vec& r,
           double thr, arma::vec& x, arma::vec& yhat, int trace, int maxiter, 
@@ -944,7 +945,7 @@ List runElnet(arma::vec& lambda, double shrink, const std::string fileName,
 //' @keywords internal
 //'  
 // [[Rcpp::export]]
-List runScad(arma::vec& lambda, double gamma, double shrink, const std::string fileName, 
+List runScad(arma::vec& lambda, double shrink, double gamma, const std::string fileName, 
               arma::vec& r, int N, int P, 
 			  arma::Col<int>& col_skip_pos, arma::Col<int>& col_skip, 
 			  arma::Col<int>& keepbytes, arma::Col<int>& keepoffset, 
@@ -996,7 +997,7 @@ List runScad(arma::vec& lambda, double gamma, double shrink, const std::string f
     if (trace > 0)
       Rcout << "lambda: " << lambda(i) << "\n" << std::endl;
     out(i) =
-        repscad(lambda(i), gamma, shrink, diag, genotypes, r, thr, x, yhat, trace-1, maxiter, 
+        repscad(lambda(i), shrink, gamma, diag, genotypes, r, thr, x, yhat, trace-1, maxiter, 
                  startvec, endvec);
     beta.col(i) = x;
     for(j=0; j < beta.n_rows; j++) {
@@ -1046,7 +1047,7 @@ List runScad(arma::vec& lambda, double gamma, double shrink, const std::string f
 //' @keywords internal
 //'  
 // [[Rcpp::export]]
-List runMcp(arma::vec& lambda, double gamma, double shrink, const std::string fileName, 
+List runMcp(arma::vec& lambda, double shrink, double gamma, const std::string fileName, 
               arma::vec& r, int N, int P, 
 			  arma::Col<int>& col_skip_pos, arma::Col<int>& col_skip, 
 			  arma::Col<int>& keepbytes, arma::Col<int>& keepoffset, 
@@ -1098,7 +1099,7 @@ List runMcp(arma::vec& lambda, double gamma, double shrink, const std::string fi
     if (trace > 0)
       Rcout << "lambda: " << lambda(i) << "\n" << std::endl;
     out(i) =
-        repmcp(lambda(i), gamma, shrink, diag, genotypes, r, thr, x, yhat, trace-1, maxiter, 
+        repmcp(lambda(i), shrink, gamma, diag, genotypes, r, thr, x, yhat, trace-1, maxiter, 
                  startvec, endvec);
     beta.col(i) = x;
     for(j=0; j < beta.n_rows; j++) {
