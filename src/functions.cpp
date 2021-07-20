@@ -4,7 +4,7 @@
    Purpose: functions to perform scadsum based on lassosum by Timothy Mak and Robert Porsch
 
    @author Seojin Hwang
-   @version 0.0.0.9000
+   @version 0.0.1
 
  */
 // [[Rcpp::interfaces(r, cpp)]]
@@ -534,7 +534,7 @@ int scad(double lambda1, double lambda2, double gamma, const arma::vec& diag, co
     // when abs(beta) is less than lambda, scad penalty is same as lasso 
       if(std::abs(xj)-lambda1 <= 0.0)
         if(std::abs(t)-lambda1 > 0.0) x(j)=copysign(std::abs(t)-lambda1, t)/denom(j);
-      else if((std::abs(xj)-lambda1 > 0.0) && (std::abs(xj)-gamma*lambda <= 0))
+      else if((std::abs(xj)-lambda1 > 0.0) && (std::abs(xj)-gamma*lambda1 <= 0))
         x(j)=copysign(std::abs(t)-gamma*lambda1/(gamma-1), t)/(denom(j)-1/(gamma-1));
       else
         x(j)=t/denom(j);
@@ -1012,12 +1012,12 @@ List runScad(arma::vec& lambda, double shrink, double gamma, const std::string f
     arma::vec pen(len);
     // summation of scad penalty for each beta   
     for (k=0; k < len; k++) {
-      if (arma::abs(x(k)) <= lambda(i)) {
-        pen(k) = arma::as_scalar(2.0*arma::abs(x(k))*lambda(i));
-      } else if (arma::abs(x(k)) <= gamma*lambda(i)) {
-        pen(k) = arma::as_scalar((2.0*gamma*arma::abs(x(k))*lambda(i) - arma::pow(x(k), 2) - arma::pow(lambda(i), 2))/(gamma-1));
+      if (std::abs(x(k)) <= lambda(i)) {
+        pen(k) = arma::as_scalar(2.0*std::abs(x(k))*lambda(i));
+      } else if (std::abs(x(k)) <= gamma*lambda(i)) {
+        pen(k) = arma::as_scalar((2.0*gamma*std::abs(x(k))*lambda(i) - std::pow(x(k), 2) - std::pow(lambda(i), 2))/(gamma-1));
       } else {
-        pen(k) = arma::as_scalar(arma::pow(lambda(i), 2)*(gamma+1));
+        pen(k) = arma::as_scalar(std::pow(lambda(i), 2)*(gamma+1));
       }
     }                       
     fbeta(i) =
@@ -1124,10 +1124,10 @@ List runMcp(arma::vec& lambda, double shrink, double gamma, const std::string fi
     arma::vec pen(len);
     // summation of mcp penalty for each beta   
     for (k=0; k < len; k++) {
-      if (arma::abs(x(k)) <= gamma*lambda(i)) {
-        pen(k) = arma::as_scalar(2.0*arma::abs(x(k))*lambda(i) - arma::pow(x(k), 2)/gamma);
+      if (std::abs(x(k)) <= gamma*lambda(i)) {
+        pen(k) = arma::as_scalar(2.0*std::abs(x(k))*lambda(i) - std::pow(x(k), 2)/gamma);
       } else {
-        pen(k) = arma::as_scalar(arma::pow(lambda(i), 2)*gamma);
+        pen(k) = arma::as_scalar(std::pow(lambda(i), 2)*gamma);
       }
     }                       
     fbeta(i) =
