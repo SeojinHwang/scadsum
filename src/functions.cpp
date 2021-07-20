@@ -532,12 +532,15 @@ int scad(double lambda1, double lambda2, double gamma, const arma::vec& diag, co
       t= diag(j) * xj + r(j) - arma::dot(X.col(j), yhat);  // sj t==ui in article
 	  // Think of it as r(j) - (dotproduct(X.col(j), yhat) - diag(j)*xj)
     // when abs(beta) is less than lambda, scad penalty is same as lasso 
-      if(std::abs(xj)-lambda1 <= 0.0)
+      if(std::abs(xj)-lambda1 <= 0.0) {
         if(std::abs(t)-lambda1 > 0.0) x(j)=copysign(std::abs(t)-lambda1, t)/denom(j);
-      else if((std::abs(xj)-lambda1 > 0.0) && (std::abs(xj)-gamma*lambda1 <= 0))
+      }
+      else if((std::abs(xj)-lambda1 > 0.0) && (std::abs(xj)-gamma*lambda1 <= 0)) {
         x(j)=copysign(std::abs(t)-gamma*lambda1/(gamma-1), t)/(denom(j)-1/(gamma-1));
-      else
+      }
+      else {
         x(j)=t/denom(j);
+      }
 	  // abs(t)-lambda1 > 0 => (t > 0 && t > lambda1) || (t < 0 && t < -lambda1)
 	  // In either case, there's shrinkage, but not to zero
 	  // If (t > 0 && t < lambda1) || (t < 0 && t > -lambda1), 0 is the minimum
@@ -640,10 +643,12 @@ int mcp(double lambda1, double lambda2, double gamma, const arma::vec& diag, con
       t= diag(j) * xj + r(j) - arma::dot(X.col(j), yhat);  // sj t==ui in article
 	  // Think of it as r(j) - (dotproduct(X.col(j), yhat) - diag(j)*xj)
     // when abs(beta) is less than lambda, scad penalty is same as lasso 
-      if(std::abs(xj)-gamma*lambda1 <= 0.0)
+      if(std::abs(xj)-gamma*lambda1 <= 0.0) {
         if(std::abs(t)-lambda1 > 0.0) x(j)=copysign(std::abs(t)-lambda1, t)/(denom(j)-1/gamma);
-      else
+      }       
+      else {
         x(j)=t/denom(j);
+      }
 	  // abs(t)-lambda1 > 0 => (t > 0 && t > lambda1) || (t < 0 && t < -lambda1)
 	  // In either case, there's shrinkage, but not to zero
 	  // If (t > 0 && t < lambda1) || (t < 0 && t > -lambda1), 0 is the minimum
