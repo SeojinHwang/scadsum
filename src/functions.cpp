@@ -4,7 +4,7 @@
    Purpose: functions to perform scadsum based on lassosum by Timothy Mak and Robert Porsch
 
    @author Seojin Hwang
-   @version 0.1
+   @version 0.0.0.9000
 
  */
 // [[Rcpp::interfaces(r, cpp)]]
@@ -537,7 +537,7 @@ int scad(double lambda1, double lambda2, double gamma, const arma::vec& diag, co
       else if((std::abs(xj)-lambda1 > 0.0) && (std::abs(xj)-gamma*lambda <= 0))
         x(j)=copysign(std::abs(t)-gamma*lambda1/(gamma-1), t)/(denom(j)-1/(gamma-1));
       else
-        x(j)=t/denom;
+        x(j)=t/denom(j);
 	  // abs(t)-lambda1 > 0 => (t > 0 && t > lambda1) || (t < 0 && t < -lambda1)
 	  // In either case, there's shrinkage, but not to zero
 	  // If (t > 0 && t < lambda1) || (t < 0 && t > -lambda1), 0 is the minimum
@@ -643,7 +643,7 @@ int mcp(double lambda1, double lambda2, double gamma, const arma::vec& diag, con
       if(std::abs(xj)-gamma*lambda1 <= 0.0)
         if(std::abs(t)-lambda1 > 0.0) x(j)=copysign(std::abs(t)-lambda1, t)/(denom(j)-1/gamma);
       else
-        x(j)=t/denom;
+        x(j)=t/denom(j);
 	  // abs(t)-lambda1 > 0 => (t > 0 && t > lambda1) || (t < 0 && t < -lambda1)
 	  // In either case, there's shrinkage, but not to zero
 	  // If (t > 0 && t < lambda1) || (t < 0 && t > -lambda1), 0 is the minimum
@@ -958,7 +958,7 @@ List runScad(arma::vec& lambda, double shrink, double gamma, const std::string f
 
   // Rcout << "ABC" << std::endl;
 
-  int i,j;
+  int i,j,k;
   arma::mat genotypes = genotypeMatrix(fileName, N, P, col_skip_pos, col_skip, keepbytes,
                              keepoffset, 1);
   // Rcout << "DEF" << std::endl;
@@ -1070,7 +1070,7 @@ List runMcp(arma::vec& lambda, double shrink, double gamma, const std::string fi
 
   // Rcout << "ABC" << std::endl;
 
-  int i,j;
+  int i,j,k;
   arma::mat genotypes = genotypeMatrix(fileName, N, P, col_skip_pos, col_skip, keepbytes,
                              keepoffset, 1);
   // Rcout << "DEF" << std::endl;
