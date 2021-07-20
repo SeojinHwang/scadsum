@@ -401,7 +401,7 @@ scadsum.pipeline <- function(cor, chr=NULL, pos=NULL, snp=NULL,
   #' \item{keep.test}{Sample to keep in the testing dataset}
   #' \item{ref.bfile}{The reference panel dataset}
   #' \item{keep.ref}{Sample to keep in the reference panel dataset}
-  #' \item{lambda, s, gamma, keep.test, destandardized}{Information to pass on to \code{\link{validate.scadsum.pipeline}} or \code{\link{pseudovalidate.scadsum.pipeline}}}
+  #' \item{lambda, s, gamma, keep.test, destandardized}{Information to pass on to \code{\link{validate.lassosum.pipeline}} or \code{\link{pseudovalidate.lassosum.pipeline}}}
   #' \item{pgs}{A matrix of polygenic scores}
   #' \item{destandardized}{Are the coefficients destandardized?}
   #' \item{exclude.ambiguous}{Were ambiguous SNPs excluded?}

@@ -1,9 +1,9 @@
-#' lassosum: A package for carrying out LASSO regression using GWAS summary statistics
+#' scadsum: A package for carrying out nonconvex penalty regression using GWAS summary statistics
 #'
 #' @docType package
-#' @name lassosum
+#' @name scadsum
 #' @importFrom Rcpp evalCpp
 #' @importFrom Matrix Diagonal t
 #' @importFrom data.table fread setkey as.data.table
-#' @useDynLib lassosum
+#' @useDynLib scadsum
 NULL
