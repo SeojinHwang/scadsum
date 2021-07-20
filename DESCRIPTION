@@ -1,13 +1,12 @@
-Package: lassosum
+Package: scadsum
 Type: Package
-Title: LASSO with summary statistics and a reference panel
-Version: 0.4.5
-Date: 2020-08-31
+Title: nonconvex penalty with summary statistics and a reference panel
+Version: 0.0.1
+Date: 2021-07-20
 Authors@R: c(
-		person("Timothy", "Mak", email = "timmak@yahoo.com", role = c("aut", "cre")),
-		person("Robert", "Porsch", email = "robert.porsch@hku.hk", role = c("aut"))
+		person("Seojin", "Hwang", email = "id1544@korea.ac.kr", role = c("aut", "cre"))
 	    )
-Description: Carries out LASSO estimation of a linear model given correlations between SNPs and phenotype and a reference panel of genotypes. 
+Description: Carries out SCAD and MCP estimation of a linear model given correlations between SNPs and phenotype and a reference panel of genotypes. 
 License: GPL-3
 LazyData: TRUE
 Includes: Rcpp
@@ -23,6 +22,6 @@ Suggests:
     fdrtool,
     knitr,
     rmarkdown
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Encoding: UTF-8
