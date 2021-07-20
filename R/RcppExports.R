@@ -7,7 +7,7 @@
 #' @keywords internal
 #' 
 countlines <- function(fileName) {
-    .Call('_lassosum_countlines', PACKAGE = 'lassosum', fileName)
+    .Call('_scadsum_countlines', PACKAGE = 'scadsum', fileName)
 }
 
 #' Multiply genotypeMatrix by a matrix
@@ -24,7 +24,7 @@ countlines <- function(fileName) {
 #' @keywords internal
 #' 
 multiBed3 <- function(fileName, N, P, input, col_skip_pos, col_skip, keepbytes, keepoffset, trace) {
-    .Call('_lassosum_multiBed3', PACKAGE = 'lassosum', fileName, N, P, input, col_skip_pos, col_skip, keepbytes, keepoffset, trace)
+    .Call('_scadsum_multiBed3', PACKAGE = 'scadsum', fileName, N, P, input, col_skip_pos, col_skip, keepbytes, keepoffset, trace)
 }
 
 #' Multiply genotypeMatrix by a matrix (sparse)
@@ -41,7 +41,7 @@ multiBed3 <- function(fileName, N, P, input, col_skip_pos, col_skip, keepbytes, 
 #' @keywords internal
 #' 
 multiBed3sp <- function(fileName, N, P, beta, nonzeros, colpos, ncol, col_skip_pos, col_skip, keepbytes, keepoffset, trace) {
-    .Call('_lassosum_multiBed3sp', PACKAGE = 'lassosum', fileName, N, P, beta, nonzeros, colpos, ncol, col_skip_pos, col_skip, keepbytes, keepoffset, trace)
+    .Call('_scadsum_multiBed3sp', PACKAGE = 'scadsum', fileName, N, P, beta, nonzeros, colpos, ncol, col_skip_pos, col_skip, keepbytes, keepoffset, trace)
 }
 
 #' Performs elnet
@@ -59,11 +59,59 @@ multiBed3sp <- function(fileName, N, P, beta, nonzeros, colpos, ncol, col_skip_p
 #' @keywords internal
 #' 
 elnet <- function(lambda1, lambda2, diag, X, r, thr, x, yhat, trace, maxiter) {
-    .Call('_lassosum_elnet', PACKAGE = 'lassosum', lambda1, lambda2, diag, X, r, thr, x, yhat, trace, maxiter)
+    .Call('_scadsum_elnet', PACKAGE = 'scadsum', lambda1, lambda2, diag, X, r, thr, x, yhat, trace, maxiter)
 }
 
 repelnet <- function(lambda1, lambda2, diag, X, r, thr, x, yhat, trace, maxiter, startvec, endvec) {
-    .Call('_lassosum_repelnet', PACKAGE = 'lassosum', lambda1, lambda2, diag, X, r, thr, x, yhat, trace, maxiter, startvec, endvec)
+    .Call('_scadsum_repelnet', PACKAGE = 'scadsum', lambda1, lambda2, diag, X, r, thr, x, yhat, trace, maxiter, startvec, endvec)
+}
+
+#' sj0715
+#' Performs scad
+#'
+#' @param lambda1 lambda
+#' @param lambda2 lambda
+#' @parem gamma gamma
+#' @param X genotype Matrix
+#' @param r correlations
+#' @param x beta coef
+#' @param thr threshold 
+#' @param yhat A vector
+#' @param trace if >1 displays the current iteration
+#' @param maxiter maximal number of iterations
+#' @return conv
+#' @keywords internal
+#' 
+scad <- function(lambda1, lambda2, gamma, diag, X, r, thr, x, yhat, trace, maxiter) {
+    .Call('_scadsum_scad', PACKAGE = 'scadsum', lambda1, lambda2, gamma, diag, X, r, thr, x, yhat, trace, maxiter)
+}
+
+repscad <- function(lambda1, lambda2, gamma, diag, X, r, thr, x, yhat, trace, maxiter, startvec, endvec) {
+    .Call('_scadsum_repscad', PACKAGE = 'scadsum', lambda1, lambda2, gamma, diag, X, r, thr, x, yhat, trace, maxiter, startvec, endvec)
+}
+
+#' sj0715
+#' Performs mcp
+#'
+#' @param lambda1 lambda
+#' @param lambda2 lambda
+#' @parem gamma gamma
+#' @param X genotype Matrix
+#' @param r correlations
+#' @param x beta coef
+#' @param thr threshold 
+#' @param yhat A vector
+#' @param trace if >1 displays the current iteration
+#' @param maxiter maximal number of iterations
+#' @return conv
+#' @keywords internal
+#' 
+mcp <- function(lambda1, lambda2, gamma, diag, X, r, thr, x, yhat, trace, maxiter) {
+    .Call('_scadsum_mcp', PACKAGE = 'scadsum', lambda1, lambda2, gamma, diag, X, r, thr, x, yhat, trace, maxiter)
+}
+
+repmcp <- function(lambda1, lambda2, gamma, diag, X, r, thr, x, yhat, trace, maxiter, startvec, endvec) {
+    .Call('_scadsum_repmcp', PACKAGE = 'scadsum', lambda1, lambda2, gamma, diag, X, r, thr, x, yhat, trace, maxiter, startvec, endvec)
 }
 
 #' imports genotypeMatrix
@@ -79,7 +127,7 @@ repelnet <- function(lambda1, lambda2, diag, X, r, thr, x, yhat, trace, maxiter,
 #' @keywords internal
 #' 
 genotypeMatrix <- function(fileName, N, P, col_skip_pos, col_skip, keepbytes, keepoffset, fillmissing) {
-    .Call('_lassosum_genotypeMatrix', PACKAGE = 'lassosum', fileName, N, P, col_skip_pos, col_skip, keepbytes, keepoffset, fillmissing)
+    .Call('_scadsum_genotypeMatrix', PACKAGE = 'scadsum', fileName, N, P, col_skip_pos, col_skip, keepbytes, keepoffset, fillmissing)
 }
 
 #' normalize genotype matrix
@@ -89,7 +137,7 @@ genotypeMatrix <- function(fileName, N, P, col_skip_pos, col_skip, keepbytes, ke
 #' @keywords internal
 #' 
 normalize <- function(genotypes) {
-    .Call('_lassosum_normalize', PACKAGE = 'lassosum', genotypes)
+    .Call('_scadsum_normalize', PACKAGE = 'scadsum', genotypes)
 }
 
 #' Runs elnet with various parameters
@@ -112,10 +160,60 @@ normalize <- function(genotypes) {
 #' @keywords internal
 #'  
 runElnet <- function(lambda, shrink, fileName, r, N, P, col_skip_pos, col_skip, keepbytes, keepoffset, thr, x, trace, maxiter, startvec, endvec) {
-    .Call('_lassosum_runElnet', PACKAGE = 'lassosum', lambda, shrink, fileName, r, N, P, col_skip_pos, col_skip, keepbytes, keepoffset, thr, x, trace, maxiter, startvec, endvec)
+    .Call('_scadsum_runElnet', PACKAGE = 'scadsum', lambda, shrink, fileName, r, N, P, col_skip_pos, col_skip, keepbytes, keepoffset, thr, x, trace, maxiter, startvec, endvec)
+}
+
+#' sj0717
+#' Runs scad with various parameters
+#' 
+#' @param lambda1 a vector of lambdas (lambda2 is 0)
+#' @param gamma 
+#' @param fileName the file name of the reference panel
+#' @param r a vector of correlations
+#' @param N number of subjects
+#' @param P number of position in reference file
+#' @param col_skip_posR which variants should we skip
+#' @param col_skipR which variants should we skip
+#' @param keepbytesR required to read the PLINK file
+#' @param keepoffsetR required to read the PLINK file
+#' @param thr threshold
+#' @param x a numeric vector of beta coefficients
+#' @param trace if >1 displays the current iteration
+#' @param maxiter maximal number of iterations
+#' @param Constant a constant to multiply the standardized genotype matrix
+#' @return a list of results
+#' @keywords internal
+#'  
+runScad <- function(lambda, shrink, gamma, fileName, r, N, P, col_skip_pos, col_skip, keepbytes, keepoffset, thr, x, trace, maxiter, startvec, endvec) {
+    .Call('_scadsum_runScad', PACKAGE = 'scadsum', lambda, shrink, gamma, fileName, r, N, P, col_skip_pos, col_skip, keepbytes, keepoffset, thr, x, trace, maxiter, startvec, endvec)
+}
+
+#' sj0717
+#' Runs mcp with various parameters
+#' 
+#' @param lambda1 a vector of lambdas (lambda2 is 0)
+#' @param gamma 
+#' @param fileName the file name of the reference panel
+#' @param r a vector of correlations
+#' @param N number of subjects
+#' @param P number of position in reference file
+#' @param col_skip_posR which variants should we skip
+#' @param col_skipR which variants should we skip
+#' @param keepbytesR required to read the PLINK file
+#' @param keepoffsetR required to read the PLINK file
+#' @param thr threshold
+#' @param x a numeric vector of beta coefficients
+#' @param trace if >1 displays the current iteration
+#' @param maxiter maximal number of iterations
+#' @param Constant a constant to multiply the standardized genotype matrix
+#' @return a list of results
+#' @keywords internal
+#'  
+runMcp <- function(lambda, shrink, gamma, fileName, r, N, P, col_skip_pos, col_skip, keepbytes, keepoffset, thr, x, trace, maxiter, startvec, endvec) {
+    .Call('_scadsum_runMcp', PACKAGE = 'scadsum', lambda, shrink, gamma, fileName, r, N, P, col_skip_pos, col_skip, keepbytes, keepoffset, thr, x, trace, maxiter, startvec, endvec)
 }
 
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {
-    .Call('_lassosum_RcppExport_registerCCallable', PACKAGE = 'lassosum')
+    .Call('_scadsum_RcppExport_registerCCallable', PACKAGE = 'scadsum')
 })
