@@ -12,6 +12,8 @@ mcp(lambda1, lambda2, gamma, diag, X, r, thr, x, yhat, trace, maxiter)
 
 \item{lambda2}{lambda}
 
+\item{gamma}{gamma}
+
 \item{X}{genotype Matrix}
 
 \item{r}{correlations}
