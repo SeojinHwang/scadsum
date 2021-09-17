@@ -75,7 +75,7 @@ mcpsum <- function(cor, bfile,
   chunks <- group.blocks(Blocks, parsed, mem.limit, chunks, cluster)
   if(trace > 0) {
     if(trace - floor(trace) > 0) {
-      cat("Doing lassosum on chunk", unique(chunks$chunks), "\n")
+      cat("Doing mcpsum on chunk", unique(chunks$chunks), "\n")
     } else {
       cat("Calculations carried out in ", max(chunks$chunks.blocks), " chunks\n")
     }
