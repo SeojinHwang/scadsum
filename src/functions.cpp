@@ -908,7 +908,8 @@ List runElnet(arma::vec& lambda, double shrink, const std::string fileName,
       if(sd(j) == 0.0) beta(j,i)=beta(j,i) * shrink;
     }
     if (out(i) != 1) {
-      throw std::runtime_error("Not converging.....");
+      Rcout << "Not converging....." << std::endl;
+      // throw std::runtime_error("Not converging.....");
     }
     pred.col(i) = yhat;
     loss(i) = arma::as_scalar(arma::sum(arma::pow(yhat, 2)) -
@@ -1009,7 +1010,8 @@ List runScad(arma::vec& lambda, double shrink, double gamma, const std::string f
       if(sd(j) == 0.0) beta(j,i)=beta(j,i) * shrink;
     }
     if (out(i) != 1) {
-      throw std::runtime_error("Not converging.....");
+      Rcout << "Not converging....." << std::endl;
+      // throw std::runtime_error("Not converging.....");
     }
     pred.col(i) = yhat;
     loss(i) = arma::as_scalar(arma::sum(arma::pow(yhat, 2)) -
@@ -1121,7 +1123,8 @@ List runMcp(arma::vec& lambda, double shrink, double gamma, const std::string fi
       if(sd(j) == 0.0) beta(j,i)=beta(j,i) * shrink;
     }
     if (out(i) != 1) {
-      throw std::runtime_error("Not converging.....");
+      Rcout << "Not converging....." << std::endl;
+      // throw std::runtime_error("Not converging.....");
     }
     pred.col(i) = yhat;
     loss(i) = arma::as_scalar(arma::sum(arma::pow(yhat, 2)) -
