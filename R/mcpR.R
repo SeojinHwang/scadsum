@@ -52,7 +52,7 @@ mcpR <- function(lambda1, lambda2=0, gamma=3, X, b, thr=1e-4,
     if(trace > 0) cat("lambda1: ", lambda1a[i], "\n")
     conv[i] <- repmcp(lambda1a[i], lambda2, gamma, diag, X, b,thr,x,yhat, trace-1,maxiter,
                        Blocks$startvec, Blocks$endvec)
-    if(conv[i] != 1) stop("Not converging...")
+    if(conv[i] != 1) warning("Not converging...") # stop to warning
     
     beta[,i] <- x
     pred[,i] <- yhat
