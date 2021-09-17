@@ -301,7 +301,7 @@ scadsum.pipeline <- function(cor, chr=NULL, pos=NULL, snp=NULL,
   cor2 <- ss2$cor[sort(m.common$order)]
   ls <- list()
   if(length(s.minus.1) > 0) {
-    if(trace) cat("Running lassosum ...\n")
+    if(trace) cat("Running scadsum ...\n")
     ls <- lapply(s.minus.1, function(s) {
       if(trace) cat("s = ", s, "\n")
       scadsum(cor=cor2, bfile=ref.bfile, 
@@ -319,7 +319,7 @@ scadsum.pipeline <- function(cor, chr=NULL, pos=NULL, snp=NULL,
   ss3$order <- m.test$order
   
   if(any(s == 1)) {
-    if(trace) cat("Running lassosum with s=1...\n")
+    if(trace) cat("Running scadsum with s=1...\n")
     il <- indeplasso(ss3$cor, lambda=lambda)
   } else {
     il <- list(beta=matrix(0, nrow=length(m.test$order), ncol=length(lambda)))
@@ -373,7 +373,7 @@ scadsum.pipeline <- function(cor, chr=NULL, pos=NULL, snp=NULL,
                      keep=parsed.test$keep, ...)
     }
     
-    if(trace) cat("De-standardize lassosum coefficients ...\n")
+    if(trace) cat("De-standardize scadsum coefficients ...\n")
     ### regression coefficients = correlation coefficients / sd(X) * sd(y) ###
     sd[sd <= 0] <- Inf # Do not want infinite beta's!
     beta <- lapply(beta, function(x) as.matrix(Matrix::Diagonal(x=1/sd) %*% x))
