@@ -1,0 +1,149 @@
+[
+    {
+        "definitions" : [
+        ],
+        "file" : "/Users/hsj/Library/scadsum/inst/include/scadsum.h",
+        "file_last_write" : 1626760366
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 6,
+                "file" : "/Users/hsj/Library/scadsum/src/functions.cpp",
+                "kind" : 6,
+                "line" : 33,
+                "name" : "openPlinkBinaryFile(const std::string, std::ifstream &)",
+                "parent_name" : "",
+                "usr" : "c:@F@openPlinkBinaryFile#1$@N@std@N@__1@C@basic_string>#C#$@N@std@N@__1@S@char_traits>#C#$@N@std@N@__1@C@allocator>#C#&$@N@std@N@__1@C@basic_ifstream>#C#S1_#"
+            },
+            {
+                "column" : 5,
+                "file" : "/Users/hsj/Library/scadsum/src/functions.cpp",
+                "kind" : 6,
+                "line" : 123,
+                "name" : "countlines(const char *)",
+                "parent_name" : "",
+                "usr" : "c:@F@countlines#*1C#"
+            },
+            {
+                "column" : 11,
+                "file" : "/Users/hsj/Library/scadsum/src/functions.cpp",
+                "kind" : 6,
+                "line" : 149,
+                "name" : "multiBed3(const std::string, int, int, const arma::mat, arma::Col<int>, arma::Col<int>, arma::Col<int>, arma::Col<int>, const int)",
+                "parent_name" : "",
+                "usr" : "c:@F@multiBed3#1$@N@std@N@__1@C@basic_string>#C#$@N@std@N@__1@S@char_traits>#C#$@N@std@N@__1@C@allocator>#C#I#I#1$@N@arma@C@Mat>#d#$@N@arma@C@Col>#I#S4_#S4_#S4_#1I#"
+            },
+            {
+                "column" : 11,
+                "file" : "/Users/hsj/Library/scadsum/src/functions.cpp",
+                "kind" : 6,
+                "line" : 271,
+                "name" : "multiBed3sp(const std::string, int, int, const arma::vec, const arma::Col<int>, const arma::Col<int>, const int, arma::Col<int>, arma::Col<int>, arma::Col<int>, arma::Col<int>, const int)",
+                "parent_name" : "",
+                "usr" : "c:@F@multiBed3sp#1$@N@std@N@__1@C@basic_string>#C#$@N@std@N@__1@S@char_traits>#C#$@N@std@N@__1@C@allocator>#C#I#I#1$@N@arma@C@Col>#d#1$@N@arma@C@Col>#I#1S4_#1I#S4_#S4_#S4_#S4_#1I#"
+            },
+            {
+                "column" : 5,
+                "file" : "/Users/hsj/Library/scadsum/src/functions.cpp",
+                "kind" : 6,
+                "line" : 405,
+                "name" : "elnet(double, double, const arma::vec &, const arma::mat &, const arma::vec &, double, arma::vec &, arma::vec &, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@elnet#d#d#&1$@N@arma@C@Col>#d#&1$@N@arma@C@Mat>#d#S0_#d#&S1_#S4_#I#I#"
+            },
+            {
+                "column" : 5,
+                "file" : "/Users/hsj/Library/scadsum/src/functions.cpp",
+                "kind" : 6,
+                "line" : 459,
+                "name" : "repelnet(double, double, arma::vec &, arma::mat &, arma::vec &, double, arma::vec &, arma::vec &, int, int, arma::Col<int> &, arma::Col<int> &)",
+                "parent_name" : "",
+                "usr" : "c:@F@repelnet#d#d#&$@N@arma@C@Col>#d#&$@N@arma@C@Mat>#d#S0_#d#S0_#S0_#I#I#&$@N@arma@C@Col>#I#S4_#"
+            },
+            {
+                "column" : 5,
+                "file" : "/Users/hsj/Library/scadsum/src/functions.cpp",
+                "kind" : 6,
+                "line" : 503,
+                "name" : "scad(double, double, double, const arma::vec &, const arma::mat &, const arma::vec &, double, arma::vec &, arma::vec &, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@scad#d#d#d#&1$@N@arma@C@Col>#d#&1$@N@arma@C@Mat>#d#S0_#d#&S1_#S4_#I#I#"
+            },
+            {
+                "column" : 5,
+                "file" : "/Users/hsj/Library/scadsum/src/functions.cpp",
+                "kind" : 6,
+                "line" : 568,
+                "name" : "repscad(double, double, double, arma::vec &, arma::mat &, arma::vec &, double, arma::vec &, arma::vec &, int, int, arma::Col<int> &, arma::Col<int> &)",
+                "parent_name" : "",
+                "usr" : "c:@F@repscad#d#d#d#&$@N@arma@C@Col>#d#&$@N@arma@C@Mat>#d#S0_#d#S0_#S0_#I#I#&$@N@arma@C@Col>#I#S4_#"
+            },
+            {
+                "column" : 5,
+                "file" : "/Users/hsj/Library/scadsum/src/functions.cpp",
+                "kind" : 6,
+                "line" : 614,
+                "name" : "mcp(double, double, double, const arma::vec &, const arma::mat &, const arma::vec &, double, arma::vec &, arma::vec &, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@mcp#d#d#d#&1$@N@arma@C@Col>#d#&1$@N@arma@C@Mat>#d#S0_#d#&S1_#S4_#I#I#"
+            },
+            {
+                "column" : 5,
+                "file" : "/Users/hsj/Library/scadsum/src/functions.cpp",
+                "kind" : 6,
+                "line" : 675,
+                "name" : "repmcp(double, double, double, arma::vec &, arma::mat &, arma::vec &, double, arma::vec &, arma::vec &, int, int, arma::Col<int> &, arma::Col<int> &)",
+                "parent_name" : "",
+                "usr" : "c:@F@repmcp#d#d#d#&$@N@arma@C@Col>#d#&$@N@arma@C@Mat>#d#S0_#d#S0_#S0_#I#I#&$@N@arma@C@Col>#I#S4_#"
+            },
+            {
+                "column" : 11,
+                "file" : "/Users/hsj/Library/scadsum/src/functions.cpp",
+                "kind" : 6,
+                "line" : 716,
+                "name" : "genotypeMatrix(const std::string, int, int, arma::Col<int>, arma::Col<int>, arma::Col<int>, arma::Col<int>, const int)",
+                "parent_name" : "",
+                "usr" : "c:@F@genotypeMatrix#1$@N@std@N@__1@C@basic_string>#C#$@N@std@N@__1@S@char_traits>#C#$@N@std@N@__1@C@allocator>#C#I#I#$@N@arma@C@Col>#I#S3_#S3_#S3_#1I#"
+            },
+            {
+                "column" : 11,
+                "file" : "/Users/hsj/Library/scadsum/src/functions.cpp",
+                "kind" : 6,
+                "line" : 817,
+                "name" : "normalize(arma::mat &)",
+                "parent_name" : "",
+                "usr" : "c:@F@normalize#&$@N@arma@C@Mat>#d#"
+            },
+            {
+                "column" : 6,
+                "file" : "/Users/hsj/Library/scadsum/src/functions.cpp",
+                "kind" : 6,
+                "line" : 852,
+                "name" : "runElnet(arma::vec &, double, const std::string, arma::vec &, int, int, arma::Col<int> &, arma::Col<int> &, arma::Col<int> &, arma::Col<int> &, double, arma::vec &, int, int, arma::Col<int> &, arma::Col<int> &)",
+                "parent_name" : "",
+                "usr" : "c:@F@runElnet#&$@N@arma@C@Col>#d#d#1$@N@std@N@__1@C@basic_string>#C#$@N@std@N@__1@S@char_traits>#C#$@N@std@N@__1@C@allocator>#C#S0_#I#I#&$@N@arma@C@Col>#I#S5_#S5_#S5_#d#S0_#I#I#S5_#S5_#"
+            },
+            {
+                "column" : 6,
+                "file" : "/Users/hsj/Library/scadsum/src/functions.cpp",
+                "kind" : 6,
+                "line" : 954,
+                "name" : "runScad(arma::vec &, double, double, const std::string, arma::vec &, int, int, arma::Col<int> &, arma::Col<int> &, arma::Col<int> &, arma::Col<int> &, double, arma::vec &, int, int, arma::Col<int> &, arma::Col<int> &)",
+                "parent_name" : "",
+                "usr" : "c:@F@runScad#&$@N@arma@C@Col>#d#d#d#1$@N@std@N@__1@C@basic_string>#C#$@N@std@N@__1@S@char_traits>#C#$@N@std@N@__1@C@allocator>#C#S0_#I#I#&$@N@arma@C@Col>#I#S5_#S5_#S5_#d#S0_#I#I#S5_#S5_#"
+            },
+            {
+                "column" : 6,
+                "file" : "/Users/hsj/Library/scadsum/src/functions.cpp",
+                "kind" : 6,
+                "line" : 1067,
+                "name" : "runMcp(arma::vec &, double, double, const std::string, arma::vec &, int, int, arma::Col<int> &, arma::Col<int> &, arma::Col<int> &, arma::Col<int> &, double, arma::vec &, int, int, arma::Col<int> &, arma::Col<int> &)",
+                "parent_name" : "",
+                "usr" : "c:@F@runMcp#&$@N@arma@C@Col>#d#d#d#1$@N@std@N@__1@C@basic_string>#C#$@N@std@N@__1@S@char_traits>#C#$@N@std@N@__1@C@allocator>#C#S0_#I#I#&$@N@arma@C@Col>#I#S5_#S5_#S5_#d#S0_#I#I#S5_#S5_#"
+            }
+        ],
+        "file" : "/Users/hsj/Library/scadsum/src/functions.cpp",
+        "file_last_write" : 1631890444
+    }
+]

@@ -1,0 +1,19 @@
+{
+    "args" : [
+        "-I/Applications/RStudio.app/Contents/Resources/resources/libclang/builtin-headers/3.5",
+        "-I/Applications/RStudio.app/Contents/Resources/resources/libclang/builtin-headers/libc++/3.5",
+        "-I/Library/Frameworks/R.framework/Versions/3.6/Resources/library/Rcpp/include",
+        "-I/Library/Frameworks/R.framework/Versions/3.6/Resources/library/RcppArmadillo/include",
+        "-std=gnu++11",
+        "-I/Library/Frameworks/R.framework/Resources/include",
+        "-DNDEBUG",
+        "-isysroot",
+        "-I/usr/local/include",
+        "-I/Users/hsj/Library/scadsum/inst/include",
+        "-DARMA_64BIT_WORD",
+        "-fPIC"
+    ],
+    "hash" : "162676032416265294961626529496",
+    "is_cpp" : true,
+    "pch" : "Rcpp"
+}
