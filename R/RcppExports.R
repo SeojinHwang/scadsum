@@ -71,7 +71,7 @@ repelnet <- function(lambda1, lambda2, diag, X, r, thr, x, yhat, trace, maxiter,
 #'
 #' @param lambda1 lambda
 #' @param lambda2 lambda
-#' @param gamma gamma
+#' @parem gamma gamma
 #' @param X genotype Matrix
 #' @param r correlations
 #' @param x beta coef
@@ -95,7 +95,7 @@ repscad <- function(lambda1, lambda2, gamma, diag, X, r, thr, x, yhat, trace, ma
 #'
 #' @param lambda1 lambda
 #' @param lambda2 lambda
-#' @param gamma gamma
+#' @parem gamma gamma
 #' @param X genotype Matrix
 #' @param r correlations
 #' @param x beta coef
