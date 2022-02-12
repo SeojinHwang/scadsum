@@ -1,3 +1,14 @@
+#' @title Function to match a set of variants to a reference
+#' by chromosome and/or position and/or SNP/rsIDs 
+#' @description 
+#' If REF/ALT alleles available, will also check them for reverse coding. 
+#' Specify the exclude.ambiguous option for possible sense/antisense ambiguity. 
+#' @param tomatch A data.frame or data.table
+#' @param ref.df A data.frame or data.table
+#' @param rm.dumplicates Remove SNPs with more than one match
+#' 
+#' @export
+
 matchpos <- function(tomatch, ref.df, 
                      auto.detect.tomatch=T, auto.detect.ref=T, 
                      chr="", ref.chr="", 
@@ -7,16 +18,6 @@ matchpos <- function(tomatch, ref.df,
                      alt="", ref.alt="",
                      exclude.ambiguous=F, 
                      silent=F, rm.duplicates=F) {
-
-  #' @title Function to match a set of variants to a reference
-  #' by chromosome and/or position and/or SNP/rsIDs 
-  #' @description 
-  #' If REF/ALT alleles available, will also check them for reverse coding. 
-  #' Specify the exclude.ambiguous option for possible sense/antisense ambiguity. 
-  #' @param tomatch A data.frame or data.table
-  #' @param ref.df A data.frame or data.table
-  #' @param rm.dumplicates Remove SNPs with more than one match
-  #' @export
 
   tomatch <- data.table::as.data.table(tomatch)
   ref.df <- data.table::as.data.table(ref.df)

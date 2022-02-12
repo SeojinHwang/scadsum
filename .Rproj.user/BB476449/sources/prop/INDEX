@@ -3,6 +3,7 @@
 ~%2FLibrary%2Fscadsum%2FNAMESPACE="F24427E"
 ~%2FLibrary%2Fscadsum%2FR%2FRcppExports.R="8C2B0F22"
 ~%2FLibrary%2Fscadsum%2FR%2Fgroup.blocks.R="CAF409CD"
+~%2FLibrary%2Fscadsum%2FR%2Findeplasso.R="99AFC338"
 ~%2FLibrary%2Fscadsum%2FR%2Flassosum.R="D1B23B3D"
 ~%2FLibrary%2Fscadsum%2FR%2Flassosum.pipeline.R="C53CAACD"
 ~%2FLibrary%2Fscadsum%2FR%2Fmatchpos.R="C63AC6E1"
