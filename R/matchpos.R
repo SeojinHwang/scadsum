@@ -16,7 +16,6 @@ matchpos <- function(tomatch, ref.df,
   #' @param tomatch A data.frame or data.table
   #' @param ref.df A data.frame or data.table
   #' @param rm.dumplicates Remove SNPs with more than one match
-  #' @keywords internal 
 
   tomatch <- data.table::as.data.table(tomatch)
   ref.df <- data.table::as.data.table(ref.df)

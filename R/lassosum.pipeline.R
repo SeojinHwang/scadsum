@@ -236,7 +236,8 @@ lassosum.pipeline <- function(cor, chr=NULL, pos=NULL, snp=NULL,
       m.test <- matchpos(ss, test.bim, auto.detect.ref = F, 
                          ref.chr = "V1", ref.snp="V2", 
                          ref.pos="V4", ref.alt="V5", ref.ref="V6", 
-                         rm.duplicates = T, exclude.ambiguous = exclude.ambiguous, 
+                         rm.duplicates = T, 
+                         exclude.ambiguous = exclude.ambiguous, 
                          silent=T)
       ### Find SNPs that are common to all three datasets ###
       if(trace) cat("Coordinating summary stats, reference panel, and test data...\n")
