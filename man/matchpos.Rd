@@ -2,8 +2,7 @@
 % Please edit documentation in R/matchpos.R
 \name{matchpos}
 \alias{matchpos}
-\title{Function to match a set of variants to a reference
-by chromosome and/or position and/or SNP/rsIDs}
+\title{Function to match a set of variants to a reference by chromosome and/or position and/or SNP/rsIDs}
 \usage{
 matchpos(
   tomatch,
@@ -32,7 +31,13 @@ matchpos(
 
 \item{rm.dumplicates}{Remove SNPs with more than one match}
 }
+\value{
+matched postions of SNPs
+}
 \description{
+Function to match a set of variants to a reference by chromosome and/or position and/or SNP/rsIDs
+}
+\details{
 If REF/ALT alleles available, will also check them for reverse coding. 
 Specify the exclude.ambiguous option for possible sense/antisense ambiguity.
 }

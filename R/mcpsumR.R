@@ -1,4 +1,4 @@
-#' @title Function to obtain LASSO estimates of a regression problem given summary statistics
+#' @title Function to obtain MCP estimates of a regression problem given summary statistics
 #' and a reference panel (without PLINK bfile) 
 #' @details A function to find the minimum of \eqn{\beta} in  
 #' \deqn{f(\beta)=\beta'R\beta - 2\beta'r + 2\rho_{mcp}(\beta;\lambda,\gamma)}
