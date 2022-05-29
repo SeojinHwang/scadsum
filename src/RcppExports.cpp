@@ -403,6 +403,94 @@ RcppExport SEXP _scadsum_repmcp(SEXP lambda1SEXP, SEXP lambda2SEXP, SEXP gammaSE
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// ridge
+int ridge(double lambda1, double lambda2, const arma::vec& diag, const arma::mat& X, const arma::vec& r, double thr, arma::vec& x, arma::vec& yhat, int trace, int maxiter);
+static SEXP _scadsum_ridge_try(SEXP lambda1SEXP, SEXP lambda2SEXP, SEXP diagSEXP, SEXP XSEXP, SEXP rSEXP, SEXP thrSEXP, SEXP xSEXP, SEXP yhatSEXP, SEXP traceSEXP, SEXP maxiterSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< double >::type lambda1(lambda1SEXP);
+    Rcpp::traits::input_parameter< double >::type lambda2(lambda2SEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type diag(diagSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type r(rSEXP);
+    Rcpp::traits::input_parameter< double >::type thr(thrSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type yhat(yhatSEXP);
+    Rcpp::traits::input_parameter< int >::type trace(traceSEXP);
+    Rcpp::traits::input_parameter< int >::type maxiter(maxiterSEXP);
+    rcpp_result_gen = Rcpp::wrap(ridge(lambda1, lambda2, diag, X, r, thr, x, yhat, trace, maxiter));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _scadsum_ridge(SEXP lambda1SEXP, SEXP lambda2SEXP, SEXP diagSEXP, SEXP XSEXP, SEXP rSEXP, SEXP thrSEXP, SEXP xSEXP, SEXP yhatSEXP, SEXP traceSEXP, SEXP maxiterSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_scadsum_ridge_try(lambda1SEXP, lambda2SEXP, diagSEXP, XSEXP, rSEXP, thrSEXP, xSEXP, yhatSEXP, traceSEXP, maxiterSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
+// repridge
+int repridge(double lambda1, double lambda2, arma::vec& diag, arma::mat& X, arma::vec& r, double thr, arma::vec& x, arma::vec& yhat, int trace, int maxiter, arma::Col<int>& startvec, arma::Col<int>& endvec);
+static SEXP _scadsum_repridge_try(SEXP lambda1SEXP, SEXP lambda2SEXP, SEXP diagSEXP, SEXP XSEXP, SEXP rSEXP, SEXP thrSEXP, SEXP xSEXP, SEXP yhatSEXP, SEXP traceSEXP, SEXP maxiterSEXP, SEXP startvecSEXP, SEXP endvecSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< double >::type lambda1(lambda1SEXP);
+    Rcpp::traits::input_parameter< double >::type lambda2(lambda2SEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type diag(diagSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type r(rSEXP);
+    Rcpp::traits::input_parameter< double >::type thr(thrSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type yhat(yhatSEXP);
+    Rcpp::traits::input_parameter< int >::type trace(traceSEXP);
+    Rcpp::traits::input_parameter< int >::type maxiter(maxiterSEXP);
+    Rcpp::traits::input_parameter< arma::Col<int>& >::type startvec(startvecSEXP);
+    Rcpp::traits::input_parameter< arma::Col<int>& >::type endvec(endvecSEXP);
+    rcpp_result_gen = Rcpp::wrap(repridge(lambda1, lambda2, diag, X, r, thr, x, yhat, trace, maxiter, startvec, endvec));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _scadsum_repridge(SEXP lambda1SEXP, SEXP lambda2SEXP, SEXP diagSEXP, SEXP XSEXP, SEXP rSEXP, SEXP thrSEXP, SEXP xSEXP, SEXP yhatSEXP, SEXP traceSEXP, SEXP maxiterSEXP, SEXP startvecSEXP, SEXP endvecSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_scadsum_repridge_try(lambda1SEXP, lambda2SEXP, diagSEXP, XSEXP, rSEXP, thrSEXP, xSEXP, yhatSEXP, traceSEXP, maxiterSEXP, startvecSEXP, endvecSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // genotypeMatrix
 arma::mat genotypeMatrix(const std::string fileName, int N, int P, arma::Col<int> col_skip_pos, arma::Col<int> col_skip, arma::Col<int> keepbytes, arma::Col<int> keepoffset, const int fillmissing);
 static SEXP _scadsum_genotypeMatrix_try(SEXP fileNameSEXP, SEXP NSEXP, SEXP PSEXP, SEXP col_skip_posSEXP, SEXP col_skipSEXP, SEXP keepbytesSEXP, SEXP keepoffsetSEXP, SEXP fillmissingSEXP) {
@@ -627,6 +715,55 @@ RcppExport SEXP _scadsum_runMcp(SEXP lambdaSEXP, SEXP shrinkSEXP, SEXP gammaSEXP
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// runRidge
+List runRidge(arma::vec& lambda, double shrink, const std::string fileName, arma::vec& r, int N, int P, arma::Col<int>& col_skip_pos, arma::Col<int>& col_skip, arma::Col<int>& keepbytes, arma::Col<int>& keepoffset, double thr, arma::vec& x, int trace, int maxiter, arma::Col<int>& startvec, arma::Col<int>& endvec);
+static SEXP _scadsum_runRidge_try(SEXP lambdaSEXP, SEXP shrinkSEXP, SEXP fileNameSEXP, SEXP rSEXP, SEXP NSEXP, SEXP PSEXP, SEXP col_skip_posSEXP, SEXP col_skipSEXP, SEXP keepbytesSEXP, SEXP keepoffsetSEXP, SEXP thrSEXP, SEXP xSEXP, SEXP traceSEXP, SEXP maxiterSEXP, SEXP startvecSEXP, SEXP endvecSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< arma::vec& >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< double >::type shrink(shrinkSEXP);
+    Rcpp::traits::input_parameter< const std::string >::type fileName(fileNameSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type r(rSEXP);
+    Rcpp::traits::input_parameter< int >::type N(NSEXP);
+    Rcpp::traits::input_parameter< int >::type P(PSEXP);
+    Rcpp::traits::input_parameter< arma::Col<int>& >::type col_skip_pos(col_skip_posSEXP);
+    Rcpp::traits::input_parameter< arma::Col<int>& >::type col_skip(col_skipSEXP);
+    Rcpp::traits::input_parameter< arma::Col<int>& >::type keepbytes(keepbytesSEXP);
+    Rcpp::traits::input_parameter< arma::Col<int>& >::type keepoffset(keepoffsetSEXP);
+    Rcpp::traits::input_parameter< double >::type thr(thrSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type trace(traceSEXP);
+    Rcpp::traits::input_parameter< int >::type maxiter(maxiterSEXP);
+    Rcpp::traits::input_parameter< arma::Col<int>& >::type startvec(startvecSEXP);
+    Rcpp::traits::input_parameter< arma::Col<int>& >::type endvec(endvecSEXP);
+    rcpp_result_gen = Rcpp::wrap(runRidge(lambda, shrink, fileName, r, N, P, col_skip_pos, col_skip, keepbytes, keepoffset, thr, x, trace, maxiter, startvec, endvec));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _scadsum_runRidge(SEXP lambdaSEXP, SEXP shrinkSEXP, SEXP fileNameSEXP, SEXP rSEXP, SEXP NSEXP, SEXP PSEXP, SEXP col_skip_posSEXP, SEXP col_skipSEXP, SEXP keepbytesSEXP, SEXP keepoffsetSEXP, SEXP thrSEXP, SEXP xSEXP, SEXP traceSEXP, SEXP maxiterSEXP, SEXP startvecSEXP, SEXP endvecSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_scadsum_runRidge_try(lambdaSEXP, shrinkSEXP, fileNameSEXP, rSEXP, NSEXP, PSEXP, col_skip_posSEXP, col_skipSEXP, keepbytesSEXP, keepoffsetSEXP, thrSEXP, xSEXP, traceSEXP, maxiterSEXP, startvecSEXP, endvecSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 
 // validate (ensure exported C++ functions exist before calling them)
 static int _scadsum_RcppExport_validate(const char* sig) { 
@@ -641,11 +778,14 @@ static int _scadsum_RcppExport_validate(const char* sig) {
         signatures.insert("int(*repscad)(double,double,double,arma::vec&,arma::mat&,arma::vec&,double,arma::vec&,arma::vec&,int,int,arma::Col<int>&,arma::Col<int>&)");
         signatures.insert("int(*mcp)(double,double,double,const arma::vec&,const arma::mat&,const arma::vec&,double,arma::vec&,arma::vec&,int,int)");
         signatures.insert("int(*repmcp)(double,double,double,arma::vec&,arma::mat&,arma::vec&,double,arma::vec&,arma::vec&,int,int,arma::Col<int>&,arma::Col<int>&)");
+        signatures.insert("int(*ridge)(double,double,const arma::vec&,const arma::mat&,const arma::vec&,double,arma::vec&,arma::vec&,int,int)");
+        signatures.insert("int(*repridge)(double,double,arma::vec&,arma::mat&,arma::vec&,double,arma::vec&,arma::vec&,int,int,arma::Col<int>&,arma::Col<int>&)");
         signatures.insert("arma::mat(*genotypeMatrix)(const std::string,int,int,arma::Col<int>,arma::Col<int>,arma::Col<int>,arma::Col<int>,const int)");
         signatures.insert("arma::vec(*normalize)(arma::mat&)");
         signatures.insert("List(*runElnet)(arma::vec&,double,const std::string,arma::vec&,int,int,arma::Col<int>&,arma::Col<int>&,arma::Col<int>&,arma::Col<int>&,double,arma::vec&,int,int,arma::Col<int>&,arma::Col<int>&)");
         signatures.insert("List(*runScad)(arma::vec&,double,double,const std::string,arma::vec&,int,int,arma::Col<int>&,arma::Col<int>&,arma::Col<int>&,arma::Col<int>&,double,arma::vec&,int,int,arma::Col<int>&,arma::Col<int>&)");
         signatures.insert("List(*runMcp)(arma::vec&,double,double,const std::string,arma::vec&,int,int,arma::Col<int>&,arma::Col<int>&,arma::Col<int>&,arma::Col<int>&,double,arma::vec&,int,int,arma::Col<int>&,arma::Col<int>&)");
+        signatures.insert("List(*runRidge)(arma::vec&,double,const std::string,arma::vec&,int,int,arma::Col<int>&,arma::Col<int>&,arma::Col<int>&,arma::Col<int>&,double,arma::vec&,int,int,arma::Col<int>&,arma::Col<int>&)");
     }
     return signatures.find(sig) != signatures.end();
 }
@@ -661,11 +801,14 @@ RcppExport SEXP _scadsum_RcppExport_registerCCallable() {
     R_RegisterCCallable("scadsum", "_scadsum_repscad", (DL_FUNC)_scadsum_repscad_try);
     R_RegisterCCallable("scadsum", "_scadsum_mcp", (DL_FUNC)_scadsum_mcp_try);
     R_RegisterCCallable("scadsum", "_scadsum_repmcp", (DL_FUNC)_scadsum_repmcp_try);
+    R_RegisterCCallable("scadsum", "_scadsum_ridge", (DL_FUNC)_scadsum_ridge_try);
+    R_RegisterCCallable("scadsum", "_scadsum_repridge", (DL_FUNC)_scadsum_repridge_try);
     R_RegisterCCallable("scadsum", "_scadsum_genotypeMatrix", (DL_FUNC)_scadsum_genotypeMatrix_try);
     R_RegisterCCallable("scadsum", "_scadsum_normalize", (DL_FUNC)_scadsum_normalize_try);
     R_RegisterCCallable("scadsum", "_scadsum_runElnet", (DL_FUNC)_scadsum_runElnet_try);
     R_RegisterCCallable("scadsum", "_scadsum_runScad", (DL_FUNC)_scadsum_runScad_try);
     R_RegisterCCallable("scadsum", "_scadsum_runMcp", (DL_FUNC)_scadsum_runMcp_try);
+    R_RegisterCCallable("scadsum", "_scadsum_runRidge", (DL_FUNC)_scadsum_runRidge_try);
     R_RegisterCCallable("scadsum", "_scadsum_RcppExport_validate", (DL_FUNC)_scadsum_RcppExport_validate);
     return R_NilValue;
 }
@@ -680,11 +823,14 @@ static const R_CallMethodDef CallEntries[] = {
     {"_scadsum_repscad", (DL_FUNC) &_scadsum_repscad, 13},
     {"_scadsum_mcp", (DL_FUNC) &_scadsum_mcp, 11},
     {"_scadsum_repmcp", (DL_FUNC) &_scadsum_repmcp, 13},
+    {"_scadsum_ridge", (DL_FUNC) &_scadsum_ridge, 10},
+    {"_scadsum_repridge", (DL_FUNC) &_scadsum_repridge, 12},
     {"_scadsum_genotypeMatrix", (DL_FUNC) &_scadsum_genotypeMatrix, 8},
     {"_scadsum_normalize", (DL_FUNC) &_scadsum_normalize, 1},
     {"_scadsum_runElnet", (DL_FUNC) &_scadsum_runElnet, 16},
     {"_scadsum_runScad", (DL_FUNC) &_scadsum_runScad, 17},
     {"_scadsum_runMcp", (DL_FUNC) &_scadsum_runMcp, 17},
+    {"_scadsum_runRidge", (DL_FUNC) &_scadsum_runRidge, 16},
     {"_scadsum_RcppExport_registerCCallable", (DL_FUNC) &_scadsum_RcppExport_registerCCallable, 0},
     {NULL, NULL, 0}
 };

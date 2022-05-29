@@ -2,7 +2,7 @@
 % Please edit documentation in R/mcpsumR.R
 \name{mcpsumR}
 \alias{mcpsumR}
-\title{Function to obtain LASSO estimates of a regression problem given summary statistics
+\title{Function to obtain MCP estimates of a regression problem given summary statistics
 and a reference panel (without PLINK bfile)}
 \usage{
 mcpsumR(
@@ -56,7 +56,7 @@ A list with the following
 \item{ridge}{ridge regression estimates}
 }
 \description{
-Function to obtain LASSO estimates of a regression problem given summary statistics
+Function to obtain MCP estimates of a regression problem given summary statistics
 and a reference panel (without PLINK bfile)
 }
 \details{

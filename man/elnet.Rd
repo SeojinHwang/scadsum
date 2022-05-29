@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{elnet}
 \alias{elnet}
-\title{Performs elnet}
+\title{Performs lasso}
 \usage{
 elnet(lambda1, lambda2, diag, X, r, thr, x, yhat, trace, maxiter)
 }
@@ -29,6 +29,6 @@ elnet(lambda1, lambda2, diag, X, r, thr, x, yhat, trace, maxiter)
 conv
 }
 \description{
-Performs elnet
+Performs lasso
 }
 \keyword{internal}

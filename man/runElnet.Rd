@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{runElnet}
 \alias{runElnet}
-\title{Runs elnet with various parameters}
+\title{Runs lasso with various parameters}
 \usage{
 runElnet(
   lambda,
@@ -56,6 +56,6 @@ runElnet(
 a list of results
 }
 \description{
-Runs elnet with various parameters
+Runs lasso with various parameters
 }
 \keyword{internal}
