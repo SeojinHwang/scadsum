@@ -44,7 +44,7 @@ multiBed3sp <- function(fileName, N, P, beta, nonzeros, colpos, ncol, col_skip_p
     .Call('_scadsum_multiBed3sp', PACKAGE = 'scadsum', fileName, N, P, beta, nonzeros, colpos, ncol, col_skip_pos, col_skip, keepbytes, keepoffset, trace)
 }
 
-#' Performs elnet
+#' Performs lasso
 #'
 #' @param lambda1 lambda
 #' @param lambda2 lambda
@@ -114,6 +114,28 @@ repmcp <- function(lambda1, lambda2, gamma, diag, X, r, thr, x, yhat, trace, max
     .Call('_scadsum_repmcp', PACKAGE = 'scadsum', lambda1, lambda2, gamma, diag, X, r, thr, x, yhat, trace, maxiter, startvec, endvec)
 }
 
+#' Performs ridge 
+#'
+#' @param lambda1 lambda
+#' @param lambda2 lambda
+#' @param X genotype Matrix
+#' @param r correlations
+#' @param x beta coef
+#' @param thr threshold 
+#' @param yhat A vector
+#' @param trace if >1 displays the current iteration
+#' @param maxiter maximal number of iterations
+#' @return conv
+#' @keywords internal
+#' 
+ridge <- function(lambda1, lambda2, diag, X, r, thr, x, yhat, trace, maxiter) {
+    .Call('_scadsum_ridge', PACKAGE = 'scadsum', lambda1, lambda2, diag, X, r, thr, x, yhat, trace, maxiter)
+}
+
+repridge <- function(lambda1, lambda2, diag, X, r, thr, x, yhat, trace, maxiter, startvec, endvec) {
+    .Call('_scadsum_repridge', PACKAGE = 'scadsum', lambda1, lambda2, diag, X, r, thr, x, yhat, trace, maxiter, startvec, endvec)
+}
+
 #' imports genotypeMatrix
 #' 
 #' @param fileName location of bam file
@@ -140,7 +162,7 @@ normalize <- function(genotypes) {
     .Call('_scadsum_normalize', PACKAGE = 'scadsum', genotypes)
 }
 
-#' Runs elnet with various parameters
+#' Runs lasso with various parameters
 #' 
 #' @param lambda1 a vector of lambdas (lambda2 is 0)
 #' @param fileName the file name of the reference panel
@@ -211,6 +233,29 @@ runScad <- function(lambda, shrink, gamma, fileName, r, N, P, col_skip_pos, col_
 #'  
 runMcp <- function(lambda, shrink, gamma, fileName, r, N, P, col_skip_pos, col_skip, keepbytes, keepoffset, thr, x, trace, maxiter, startvec, endvec) {
     .Call('_scadsum_runMcp', PACKAGE = 'scadsum', lambda, shrink, gamma, fileName, r, N, P, col_skip_pos, col_skip, keepbytes, keepoffset, thr, x, trace, maxiter, startvec, endvec)
+}
+
+#' Runs ridge with various parameters
+#' 
+#' @param lambda1 a vector of lambdas (lambda2 is 0)
+#' @param fileName the file name of the reference panel
+#' @param r a vector of correlations
+#' @param N number of subjects
+#' @param P number of position in reference file
+#' @param col_skip_posR which variants should we skip
+#' @param col_skipR which variants should we skip
+#' @param keepbytesR required to read the PLINK file
+#' @param keepoffsetR required to read the PLINK file
+#' @param thr threshold
+#' @param x a numeric vector of beta coefficients
+#' @param trace if >1 displays the current iteration
+#' @param maxiter maximal number of iterations
+#' @param Constant a constant to multiply the standardized genotype matrix
+#' @return a list of results
+#' @keywords internal
+#'  
+runRidge <- function(lambda, shrink, fileName, r, N, P, col_skip_pos, col_skip, keepbytes, keepoffset, thr, x, trace, maxiter, startvec, endvec) {
+    .Call('_scadsum_runRidge', PACKAGE = 'scadsum', lambda, shrink, fileName, r, N, P, col_skip_pos, col_skip, keepbytes, keepoffset, thr, x, trace, maxiter, startvec, endvec)
 }
 
 # Register entry points for exported C++ functions

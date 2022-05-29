@@ -1,4 +1,4 @@
--/**
+/*
    scadsum
    functions.cpp
    Purpose: functions to perform scadsum based on lassosum by Timothy Mak and Robert Porsch

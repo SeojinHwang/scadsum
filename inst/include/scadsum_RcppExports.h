@@ -214,6 +214,48 @@ namespace scadsum {
         return Rcpp::as<int >(rcpp_result_gen);
     }
 
+    inline int ridge(double lambda1, double lambda2, const arma::vec& diag, const arma::mat& X, const arma::vec& r, double thr, arma::vec& x, arma::vec& yhat, int trace, int maxiter) {
+        typedef SEXP(*Ptr_ridge)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_ridge p_ridge = NULL;
+        if (p_ridge == NULL) {
+            validateSignature("int(*ridge)(double,double,const arma::vec&,const arma::mat&,const arma::vec&,double,arma::vec&,arma::vec&,int,int)");
+            p_ridge = (Ptr_ridge)R_GetCCallable("scadsum", "_scadsum_ridge");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_ridge(Shield<SEXP>(Rcpp::wrap(lambda1)), Shield<SEXP>(Rcpp::wrap(lambda2)), Shield<SEXP>(Rcpp::wrap(diag)), Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(r)), Shield<SEXP>(Rcpp::wrap(thr)), Shield<SEXP>(Rcpp::wrap(x)), Shield<SEXP>(Rcpp::wrap(yhat)), Shield<SEXP>(Rcpp::wrap(trace)), Shield<SEXP>(Rcpp::wrap(maxiter)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<int >(rcpp_result_gen);
+    }
+
+    inline int repridge(double lambda1, double lambda2, arma::vec& diag, arma::mat& X, arma::vec& r, double thr, arma::vec& x, arma::vec& yhat, int trace, int maxiter, arma::Col<int>& startvec, arma::Col<int>& endvec) {
+        typedef SEXP(*Ptr_repridge)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_repridge p_repridge = NULL;
+        if (p_repridge == NULL) {
+            validateSignature("int(*repridge)(double,double,arma::vec&,arma::mat&,arma::vec&,double,arma::vec&,arma::vec&,int,int,arma::Col<int>&,arma::Col<int>&)");
+            p_repridge = (Ptr_repridge)R_GetCCallable("scadsum", "_scadsum_repridge");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_repridge(Shield<SEXP>(Rcpp::wrap(lambda1)), Shield<SEXP>(Rcpp::wrap(lambda2)), Shield<SEXP>(Rcpp::wrap(diag)), Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(r)), Shield<SEXP>(Rcpp::wrap(thr)), Shield<SEXP>(Rcpp::wrap(x)), Shield<SEXP>(Rcpp::wrap(yhat)), Shield<SEXP>(Rcpp::wrap(trace)), Shield<SEXP>(Rcpp::wrap(maxiter)), Shield<SEXP>(Rcpp::wrap(startvec)), Shield<SEXP>(Rcpp::wrap(endvec)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<int >(rcpp_result_gen);
+    }
+
     inline arma::mat genotypeMatrix(const std::string fileName, int N, int P, arma::Col<int> col_skip_pos, arma::Col<int> col_skip, arma::Col<int> keepbytes, arma::Col<int> keepoffset, const int fillmissing) {
         typedef SEXP(*Ptr_genotypeMatrix)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_genotypeMatrix p_genotypeMatrix = NULL;
@@ -309,6 +351,27 @@ namespace scadsum {
         {
             RNGScope RCPP_rngScope_gen;
             rcpp_result_gen = p_runMcp(Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(shrink)), Shield<SEXP>(Rcpp::wrap(gamma)), Shield<SEXP>(Rcpp::wrap(fileName)), Shield<SEXP>(Rcpp::wrap(r)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(P)), Shield<SEXP>(Rcpp::wrap(col_skip_pos)), Shield<SEXP>(Rcpp::wrap(col_skip)), Shield<SEXP>(Rcpp::wrap(keepbytes)), Shield<SEXP>(Rcpp::wrap(keepoffset)), Shield<SEXP>(Rcpp::wrap(thr)), Shield<SEXP>(Rcpp::wrap(x)), Shield<SEXP>(Rcpp::wrap(trace)), Shield<SEXP>(Rcpp::wrap(maxiter)), Shield<SEXP>(Rcpp::wrap(startvec)), Shield<SEXP>(Rcpp::wrap(endvec)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<List >(rcpp_result_gen);
+    }
+
+    inline List runRidge(arma::vec& lambda, double shrink, const std::string fileName, arma::vec& r, int N, int P, arma::Col<int>& col_skip_pos, arma::Col<int>& col_skip, arma::Col<int>& keepbytes, arma::Col<int>& keepoffset, double thr, arma::vec& x, int trace, int maxiter, arma::Col<int>& startvec, arma::Col<int>& endvec) {
+        typedef SEXP(*Ptr_runRidge)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_runRidge p_runRidge = NULL;
+        if (p_runRidge == NULL) {
+            validateSignature("List(*runRidge)(arma::vec&,double,const std::string,arma::vec&,int,int,arma::Col<int>&,arma::Col<int>&,arma::Col<int>&,arma::Col<int>&,double,arma::vec&,int,int,arma::Col<int>&,arma::Col<int>&)");
+            p_runRidge = (Ptr_runRidge)R_GetCCallable("scadsum", "_scadsum_runRidge");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_runRidge(Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(shrink)), Shield<SEXP>(Rcpp::wrap(fileName)), Shield<SEXP>(Rcpp::wrap(r)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(P)), Shield<SEXP>(Rcpp::wrap(col_skip_pos)), Shield<SEXP>(Rcpp::wrap(col_skip)), Shield<SEXP>(Rcpp::wrap(keepbytes)), Shield<SEXP>(Rcpp::wrap(keepoffset)), Shield<SEXP>(Rcpp::wrap(thr)), Shield<SEXP>(Rcpp::wrap(x)), Shield<SEXP>(Rcpp::wrap(trace)), Shield<SEXP>(Rcpp::wrap(maxiter)), Shield<SEXP>(Rcpp::wrap(startvec)), Shield<SEXP>(Rcpp::wrap(endvec)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
