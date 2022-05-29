@@ -1,10 +1,10 @@
-/**
+-/**
    scadsum
    functions.cpp
    Purpose: functions to perform scadsum based on lassosum by Timothy Mak and Robert Porsch
 
    @author Seojin Hwang
-   @version 0.0.1
+   @version 0.0.2
 
  */
 // [[Rcpp::interfaces(r, cpp)]]
@@ -387,7 +387,7 @@ arma::mat multiBed3sp(const std::string fileName, int N, int P,
 
 
 
-//' Performs elnet
+//' Performs lasso
 //'
 //' @param lambda1 lambda
 //' @param lambda2 lambda
@@ -454,6 +454,7 @@ int elnet(double lambda1, double lambda2, const arma::vec& diag, const arma::mat
   }
   return conv;
 }
+
 
 // [[Rcpp::export]]
 int repelnet(double lambda1, double lambda2, arma::vec& diag, arma::mat& X, arma::vec& r,
@@ -593,7 +594,6 @@ int repscad(double lambda1, double lambda2, double gamma, arma::vec& diag, arma:
 
 
 
-
 //' sj0715
 //' Performs mcp
 //'
@@ -696,6 +696,105 @@ int repmcp(double lambda1, double lambda2, double gamma, arma::vec& diag, arma::
   }
   return out; 
 }
+
+
+
+
+//' Performs ridge 
+//'
+//' @param lambda1 lambda
+//' @param lambda2 lambda
+//' @param X genotype Matrix
+//' @param r correlations
+//' @param x beta coef
+//' @param thr threshold 
+//' @param yhat A vector
+//' @param trace if >1 displays the current iteration
+//' @param maxiter maximal number of iterations
+//' @return conv
+//' @keywords internal
+//' 
+// [[Rcpp::export]]
+int ridge(double lambda1, double lambda2, const arma::vec& diag, const arma::mat& X, 
+          const arma::vec& r, double thr, arma::vec& x, arma::vec& yhat, int trace, int maxiter)
+{
+
+// diag is basically diag(X'X)
+// Also, ensure that the yhat=X*x in the input. Usually, both x and yhat are preset to 0. 
+// They are modified in place in this function. 
+
+  int n=X.n_rows;
+  int p=X.n_cols;
+
+  if(r.n_elem != p) stop("r.n_elem != p");
+  if(x.n_elem != p) stop("x.n_elem != p");
+  if(yhat.n_elem != n) stop("yhat.n_elem != n");
+  if(diag.n_elem != p) stop("diag.n_elem != p"); 
+
+  double dlx,del,t,xj;
+  int j,i;
+  arma::vec Lambda1(p); 
+  arma::vec Lambda2(p); 
+  Lambda1.fill(lambda1); 
+  Lambda2.fill(lambda2); // sj .fill: set all elements to specified value
+  arma::vec denom=diag + Lambda1 + Lambda2;
+
+  int conv=0;
+  for(int k=0;k<maxiter ;k++) {
+    dlx=0.0;
+    for(j=0; j < p; j++) {
+      xj=x(j);
+      x(j)=0.0;
+      t= diag(j) * xj + r(j) - arma::dot(X.col(j), yhat);  // sj t==ui in article
+	  // Think of it as r(j) - (dotproduct(X.col(j), yhat) - diag(j)*xj)
+      x(j)=t/denom(j); // sj double copysign(double x, double y); use sign of y as sign of x
+	  // closed form of ridge 
+	  
+      if(x(j)==xj) continue; // go to end of the loop
+      del=x(j)-xj;
+      dlx=std::max(dlx,std::abs(del));
+
+	  yhat += del*X.col(j);
+    }
+    checkUserInterrupt();
+    if(trace > 0) Rcout << "Iteration: " << k << "\n";
+
+    if(dlx < thr) {
+      conv=1;
+      break;
+    }
+  }
+  return conv;
+}
+
+
+// [[Rcpp::export]]
+int repridge(double lambda1, double lambda2, arma::vec& diag, arma::mat& X, arma::vec& r,
+          double thr, arma::vec& x, arma::vec& yhat, int trace, int maxiter, 
+          arma::Col<int>& startvec, arma::Col<int>& endvec)
+{
+  
+  // Repeatedly call ridge by blocks...
+  int nreps=startvec.n_elem;
+  int out=1;
+  for(int i=0;i < startvec.n_elem; i++) {
+    arma::vec xtouse=x.subvec(startvec(i), endvec(i));
+    arma::vec yhattouse=X.cols(startvec(i), endvec(i)) * xtouse;
+    int out2=ridge(lambda1, lambda2, 
+                   diag.subvec(startvec(i), endvec(i)), 
+                   X.cols(startvec(i), endvec(i)), 
+                   r.subvec(startvec(i), endvec(i)),
+                   thr, xtouse, 
+                   yhattouse, trace - 1, maxiter);
+    x.subvec(startvec(i), endvec(i))=xtouse;
+    yhat += yhattouse;
+    if(trace > 0) Rcout << "Block: " << i << "\n";
+    out=std::min(out, out2);
+  }
+  return out; 
+}
+
+
 
 
 
@@ -829,7 +928,7 @@ arma::vec normalize(arma::mat &genotypes)
 	return sd; 
 }
 
-//' Runs elnet with various parameters
+//' Runs lasso with various parameters
 //' 
 //' @param lambda1 a vector of lambdas (lambda2 is 0)
 //' @param fileName the file name of the reference panel
@@ -1143,6 +1242,101 @@ List runMcp(arma::vec& lambda, double shrink, double gamma, const std::string fi
   }
   return List::create(Named("lambda") = lambda, 
             Named("gamma") = gamma,
+					  Named("beta") = beta,
+                      Named("conv") = out,
+					  Named("pred") = pred,
+                      Named("loss") = loss, 
+					  Named("fbeta") = fbeta, 
+					  Named("sd")= sd);
+}
+
+
+
+//' Runs ridge with various parameters
+//' 
+//' @param lambda1 a vector of lambdas (lambda2 is 0)
+//' @param fileName the file name of the reference panel
+//' @param r a vector of correlations
+//' @param N number of subjects
+//' @param P number of position in reference file
+//' @param col_skip_posR which variants should we skip
+//' @param col_skipR which variants should we skip
+//' @param keepbytesR required to read the PLINK file
+//' @param keepoffsetR required to read the PLINK file
+//' @param thr threshold
+//' @param x a numeric vector of beta coefficients
+//' @param trace if >1 displays the current iteration
+//' @param maxiter maximal number of iterations
+//' @param Constant a constant to multiply the standardized genotype matrix
+//' @return a list of results
+//' @keywords internal
+//'  
+// [[Rcpp::export]]
+List runRidge(arma::vec& lambda, double shrink, const std::string fileName, 
+              arma::vec& r, int N, int P, 
+			  arma::Col<int>& col_skip_pos, arma::Col<int>& col_skip, 
+			  arma::Col<int>& keepbytes, arma::Col<int>& keepoffset, 
+			  double thr, arma::vec& x, int trace, int maxiter, 
+			  arma::Col<int>& startvec, arma::Col<int>& endvec) {
+  // a) read bed file
+  // b) standardize genotype matrix
+  // c) multiply by constatant factor
+  // d) perfrom ridge
+
+  int i,j;
+  arma::mat genotypes = genotypeMatrix(fileName, N, P, col_skip_pos, col_skip, keepbytes,
+                             keepoffset, 1);
+
+  if (genotypes.n_cols != r.n_elem) {
+    throw std::runtime_error("Number of positions in reference file is not "
+                             "equal the number of regression coefficients");
+  }
+
+  arma::vec sd = normalize(genotypes);
+
+  genotypes *= sqrt(1.0 - shrink);
+
+  arma::Col<int> conv(lambda.n_elem);
+  int len = r.n_elem;
+
+  arma::mat beta(len, lambda.n_elem);
+  arma::mat pred(genotypes.n_rows, lambda.n_elem); pred.zeros();
+  arma::vec out(lambda.n_elem);
+  arma::vec loss(lambda.n_elem);
+  arma::vec diag(r.n_elem); diag.fill(1.0 - shrink); 
+
+	for(j=0; j < diag.n_elem; j++) {
+		if(sd(j) == 0.0) diag(j) = 0.0;
+	}
+
+  arma::vec fbeta(lambda.n_elem);
+  arma::vec yhat(genotypes.n_rows);
+  // yhat = genotypes * x;
+
+  
+  // Rcout << "Starting loop" << std::endl;
+  for (i = 0; i < lambda.n_elem; ++i) {
+    if (trace > 0)
+      Rcout << "lambda: " << lambda(i) << "\n" << std::endl;
+    out(i) =
+        repridge(lambda(i), shrink, diag,genotypes, r, thr, x, yhat, trace-1, maxiter, 
+                 startvec, endvec);
+    beta.col(i) = x;
+    for(j=0; j < beta.n_rows; j++) {
+      if(sd(j) == 0.0) beta(j,i)=beta(j,i) * shrink;
+    }
+    if (out(i) != 1) {
+      Rcout << "Not converging....." << std::endl;
+      // throw std::runtime_error("Not converging.....");
+    }
+    pred.col(i) = yhat;
+    loss(i) = arma::as_scalar(arma::sum(arma::pow(yhat, 2)) -
+                              2.0 * arma::sum(x % r));
+    fbeta(i) =
+        arma::as_scalar(loss(i) +arma::sum(arma::pow(x, 2)) * lambda(i) +
+                        arma::sum(arma::pow(x, 2)) * shrink);
+  }
+  return List::create(Named("lambda") = lambda, 
 					  Named("beta") = beta,
                       Named("conv") = out,
 					  Named("pred") = pred,
