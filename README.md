@@ -1,6 +1,6 @@
 ## scadsum
 
-based on [lassosum](https://github.com/tshmak/lassosum),
+Based on [lassosum](https://github.com/tshmak/lassosum),
 
 apply SCAD and MCP penalty to improve prediction performance of genetic risk score to phenotypes.
 
